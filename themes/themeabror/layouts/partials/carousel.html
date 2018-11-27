@@ -5,8 +5,10 @@
     <div class="jumbotron jumbotron-fluid bg-success text-white">
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
              <div class="carousel-inner">
-                 {{ range sort .Site.Data.carousel "weight" }}
-                    <div class="carousel-item active">
+                 {{ $randomise := shuffle (seq 0 (sub (len .Site.Data.carousel) 1))   }}
+                 {{ $activeIndex := index $randomise 0 }}
+                 {{ range $key, $value := sort .Site.Data.carousel "weight" }}
+                    <div class="carousel-item{{ if eq $key $activeIndex  }} active{{ end }}">
                         <div class="row">
                             <div class="col-sm-5 right">
                                   <h6>{{ .title }}</h6>
